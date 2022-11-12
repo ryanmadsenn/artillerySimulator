@@ -165,3 +165,41 @@ void TestPhysics::testCalculateAcc() {
     // Verify.
     assert(physics.getF() == 48.8592);
 }
+
+void TestPhysics::testCalculateDDX() {
+    Projectile projectile;
+    // Set components so angle from components
+    // can work in calculateDDX.
+    projectile.setDX(827);
+    projectile.setDY(0);
+
+    physics.setAcc(48.8592);
+
+    // Exercise.
+    physics.calculateDDX();
+
+    // Verify.
+    assert(physics.getDDX() == -12.3742);
+}
+
+void TestPhysics::testCalculateDDY() {
+    Projectile projectile;
+    projectile.getPosition().setMetersY(0);
+    // Set components so angle from components
+    // can work in calculateDDX.
+    projectile.setDX(0);
+    projectile.setDY(827);
+
+    physics.setAcc(48.8592);
+
+    // Exercise.
+    physics.calculateDDX();
+
+    // Verify.
+    assert(physics.getDDX() == -50.2666);
+}
+
+void TestPhysics::testCalculateNewPos() {
+
+
+}
