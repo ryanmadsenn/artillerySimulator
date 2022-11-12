@@ -33,4 +33,28 @@ public:
     void calculateNewPos(); // Calculate new position.
     void updateComponents(); // Calculate new horizontal and vertical component.
     void calculateV(); // Calculate total velocity.
+
+    // Getters.
+    double getVS();
+    double getVM();
+    double getTimeInterval();
+    double getCD();
+    double getAD();
+    double getF();
+    double getAcc();
+    double getDDX();
+    double getDDY();
+
+    // Setters.
+    void setVS(double vs);
+    void setVM(double vm);
+    void setTimeInterval(double timeInterval);
+    void setCD(double cd);
+    void setAD(double ad);
+    void setF(double f);
+    void setAcc(double acc);
+    void setDDX(double ddx);
+    void setDDY(double ddy);
+
+
 };

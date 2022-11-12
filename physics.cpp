@@ -183,6 +183,67 @@ void Physics::calculateV() {
 }
 
 
+// Getters.
+double Physics::getVS() {
+    return vs;
+}
+double Physics::getVM() {
+    return vm;
+}
+double Physics::getTimeInterval() {
+    return timeInterval;
+}
+double Physics::getCD() {
+    return cd;
+}
+double Physics::getAD() {
+    return ad;
+}
+double Physics::getF() {
+    return f;
+}
+double Physics::getAcc() {
+    return acc;
+}
+double Physics::getDDX() {
+    return ddx;
+}
+double Physics::getDDY() {
+    return ddy;
+}
+
+// Setters.
+void Physics::setVS(double vs) {
+    this->vs = vs;
+}
+void Physics::setVM(double vm) {
+    this->vm = vm;
+}
+void Physics::setTimeInterval(double timeInterval) {
+    this->timeInterval = timeInterval;
+}
+void Physics::setCD(double cd) {
+    this->cd = cd;
+}
+void Physics::setAD(double ad) {
+    this->ad = ad;
+}
+void Physics::setF(double f) {
+    this->f = f;
+}
+void Physics::setAcc(double acc) {
+    this->acc = acc;
+}
+void Physics::setDDX(double ddx) {
+    this->ddx = ddx;
+}
+void Physics::setDDY(double ddy) {
+    this->ddy = ddy;
+}
+
+
+
+
 
 
 
