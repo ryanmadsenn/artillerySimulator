@@ -2,6 +2,35 @@
 #include "testPhysics.h"
 
 
+void TestPhysics::run() {
+    setup();
+    testLinearlyInterpolate();
+    setup();
+    testCalculateVM();
+    setup();
+    testCalculateDX();
+    setup();
+    testCalculateDY();
+    setup();
+    testAngleFromComponents();
+    setup();
+    testTableLookUp();
+    setup();
+    testCalculateF();
+    setup();
+    testCalculateAcc();
+    setup();
+    testCalculateDDX();
+    setup();
+    testCalculateDDY();
+    setup();
+    testCalculateNewPos();
+    setup();
+    testUpdateComponents();
+    setup();
+    testCalculateV();
+}
+
 void TestPhysics::setup() {
     physics = Physics();
 }
@@ -19,8 +48,8 @@ void TestPhysics::testLinearlyInterpolate() {
 
 void TestPhysics::testCalculateVM() {
     // Setup.
-    Projectile projectile;
-    projectile.setV(827);
+
+    physics.projectile.setV(827);
     physics.setVS(340);
 
     // Exercise.
@@ -32,79 +61,79 @@ void TestPhysics::testCalculateVM() {
 
 void TestPhysics::testCalculateDX() {
     // Setup.
-    Projectile projectile;
-    projectile.setV(100);
+
+    physics.projectile.setV(100);
 
     // Test for angle 0.
     // Exercise.
     physics.calculateDX(0);
 
     // Verify.
-    assert(projectile.getDX() == 0);
+    assert(physics.projectile.getDX() == 0);
 
     // Test for angle 0.785398 (45 degrees)
     // Exercise.
     physics.calculateDX(0.785398);
 
     // Verify.
-    assert(projectile.getDX() == 50);
+    assert(physics.projectile.getDX() == 50);
 
     // Test for angle 1.5708 (90 degrees)
     // Exercise.
     physics.calculateDX(1.5708);
 
     // Verify.
-    assert(projectile.getDX() == 100);
+    assert(physics.projectile.getDX() == 100);
 
 }
 
 void TestPhysics::testCalculateDY() {
     // Setup.
-    Projectile projectile;
-    projectile.setV(100);
+
+    physics.projectile.setV(100);
 
     // Test for angle 0.
     // Exercise.
     physics.calculateDY(0);
 
     // Verify.
-    assert(projectile.getDY() == 100);
+    assert(physics.projectile.getDY() == 100);
 
     // Test for angle 0.785398 (45 degrees)
     // Exercise.
     physics.calculateDY(0.785398);
 
     // Verify.
-    assert(projectile.getDY() == 50);
+    assert(physics.projectile.getDY() == 50);
 
     // Test for angle 1.5708 (90 degrees)
     // Exercise.
     physics.calculateDY(1.5708);
 
     // Verify.
-    assert(projectile.getDY() == 0);
+    assert(physics.projectile.getDY() == 0);
 
 }
 
 void TestPhysics::testAngleFromComponents() {
     // Setup.
-    Projectile projectile;
-    projectile.setDX(100);
-    projectile.setDY(0);
+
+    physics.projectile.setDX(100);
+    physics.projectile.setDY(0);
 
     // Exercise and verify.
     assert(physics.angleFromComponents() == 0.256051);
 
     // Setup.
-    projectile.setDX(50);
-    projectile.setDY(50);
+    physics.projectile.setDX(50);
+    physics.projectile.setDY(50);
 
     // Exercise and verify.
     assert(physics.angleFromComponents() == 0.107272);
 
     // Setup.
-    projectile.setDX(0);
-    projectile.setDY(100);
+    physics.projectile.setDX(0);
+    physics.projectile.setDY(100);
 
     // Exercise and verify.
     assert(physics.angleFromComponents() == 0.595114);
@@ -142,8 +171,8 @@ void TestPhysics::testTableLookUp() {
 
 void TestPhysics::testCalculateF() {
     // Setup.
-    Projectile projectile;
-    projectile.setV(827);
+
+    physics.projectile.setV(827);
     physics.setCD(0.289081);
     physics.setAD(1.2250);
 
@@ -156,7 +185,7 @@ void TestPhysics::testCalculateF() {
 
 void TestPhysics::testCalculateAcc() {
     // Setup.
-    Projectile projectile;
+
     physics.setF(2281.73);
 
     // Exercise.
@@ -167,11 +196,11 @@ void TestPhysics::testCalculateAcc() {
 }
 
 void TestPhysics::testCalculateDDX() {
-    Projectile projectile;
+
     // Set components so angle from components
     // can work in calculateDDX.
-    projectile.setDX(827);
-    projectile.setDY(0);
+    physics.projectile.setDX(827);
+    physics.projectile.setDY(0);
 
     physics.setAcc(48.8592);
 
@@ -183,12 +212,12 @@ void TestPhysics::testCalculateDDX() {
 }
 
 void TestPhysics::testCalculateDDY() {
-    Projectile projectile;
-    projectile.getPosition().setMetersY(0);
+    // Setup.
+    physics.projectile.getPosition().setMetersY(0);
     // Set components so angle from components
     // can work in calculateDDX.
-    projectile.setDX(0);
-    projectile.setDY(827);
+    physics.projectile.setDX(0);
+    physics.projectile.setDY(827);
 
     physics.setAcc(48.8592);
 
@@ -200,6 +229,47 @@ void TestPhysics::testCalculateDDY() {
 }
 
 void TestPhysics::testCalculateNewPos() {
+    // Setup.
+    physics.projectile.getPosition().setMetersX(0);
+    physics.projectile.getPosition().setMetersY(0);
+    physics.projectile.setDX(413.5);
+    physics.projectile.setDY(413.5);
+    physics.setDDX(-5.23119);
+    physics.setDDY(-58.3854);
+    physics.setTimeInterval(1);
 
+    // Exercise.
+    physics.calculateNewPos();
 
+    // Verify.
+    assert(physics.projectile.getPosition().getMetersX() == 410.884);
+    assert(physics.projectile.getPosition().getMetersY() == 384.307);
+}
+
+void TestPhysics::testUpdateComponents() {
+    // Setup.
+    physics.projectile.setDX(413.5);
+    physics.projectile.setDY(413.5);
+    physics.setDDX(-5.23119);
+    physics.setDDY(-58.3854);
+    physics.setTimeInterval(1);
+
+    // Exercise.
+    physics.updateComponents();
+
+    // Verify.
+    assert(physics.getDDX() == 408.269);
+    assert(physics.getDDY() == 355.115);
+}
+
+void TestPhysics::testCalculateV() {
+    // Setup.
+    physics.projectile.setDX(10);
+    physics.projectile.setDY(10);
+
+    // Exercise.
+    physics.calculateV();
+
+    // Verify.
+    assert(physics.projectile.getV() == 14.1421);
 }

@@ -15,9 +15,9 @@ private:
     double acc; // Acceleration.
     double ddx; // Horizontal component of acceleration.
     double ddy; // Vertical component of acceleration.
-    Projectile projectile;
 
 public:
+    Projectile projectile;
     void initialCalculations(double aRadians); // Makes initial calculations when howitzer shoots.
     void updateProjectile(); // Calls all methods necessary to update projectile.
     double linearlyInterpolate(double value, double v0, double v1, double c0, double c1); // Perform linear interpolation.

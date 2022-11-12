@@ -6,6 +6,7 @@
 class TestPhysics {
     Physics physics;
 
+    void run();
     void setup();
     void testInitialCalculations();
     void testUpdateProjectile();
