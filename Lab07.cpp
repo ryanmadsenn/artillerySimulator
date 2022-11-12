@@ -16,6 +16,7 @@
 #include "uiDraw.h"     // for RANDOM and DRAW*
 #include "ground.h"     // for GROUND
 #include "position.h"   // for POSITION
+#include "howitzer.h"   // for HOWITZER
 using namespace std;
 
 /*************************************************************************
@@ -74,18 +75,23 @@ void callBack(const Interface* pUI, void* p)
 
    // move a large amount
    if (pUI->isRight())
+       // Call howitzer.rotate(0)
       pDemo->angle += 0.05;
    if (pUI->isLeft())
+       // Call howitzer.rotate(1)
       pDemo->angle -= 0.05;
 
    // move by a little
    if (pUI->isUp())
+       // Call howitzer.rotate(2)
       pDemo->angle += (pDemo->angle >= 0 ? -0.003 : 0.003);
    if (pUI->isDown())
+       // Call howitzer.rotate(3)
       pDemo->angle += (pDemo->angle >= 0 ? 0.003 : -0.003);
 
    // fire that gun
    if (pUI->isSpace())
+       // Call howitzer.shoot()
       pDemo->time = 0.0;
 
    //
@@ -93,6 +99,7 @@ void callBack(const Interface* pUI, void* p)
    //
 
    // advance time by half a second.
+   // pHowitzer.incrementTimeSinceLastShot()
    pDemo->time += 0.5;
 
    // move the projectile across the screen
@@ -113,9 +120,11 @@ void callBack(const Interface* pUI, void* p)
    ogstream gout(Position(10.0, pDemo->ptUpperRight.getPixelsY() - 20.0));
 
    // draw the ground first
+   // pGround->draw(gout);
    pDemo->ground.draw(gout);
 
    // draw the howitzer
+   //gout.drawHowitzer(pHowitzer->*getPosition(), pHowitzer->getAngle(), pHowitzer.getTimeSinceLastShot())
    gout.drawHowitzer(pDemo->ptHowitzer, pDemo->angle, pDemo->time);
 
    // draw the projectile
@@ -156,6 +165,15 @@ int main(int argc, char** argv)
 
    // Initialize the demo
    Demo demo(ptUpperRight);
+
+   // Instantiate classes.
+   Howitzer howitzer(ptUpperRight);
+   Ground ground(ptUpperRight);
+
+   // Pass howitzer position to ground so that
+   // it's Y position can be set to the correct
+   // height.
+   ground.reset(*howitzer.getPosition());
 
    // set everything into action
    ui.run(callBack, &demo);
