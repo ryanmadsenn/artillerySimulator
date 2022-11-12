@@ -32,6 +32,13 @@ public:
    Position(double x, double y);
    Position(const Position & pt) : x(pt.x), y(pt.y) {}
    Position& operator = (const Position& pt);
+   bool operator ==(const Position& p2) {
+       if (p2.x == x && p2.y == y) {
+           return true;
+       }
+       else
+           return false; 
+   }
 
    // getters
    double getMetersX()       const { return x;                    }

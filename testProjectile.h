@@ -13,18 +13,18 @@ public:
 	testProjectile(); 
 	void run(); 
 	void setup();
-	double testGetDX(); 
-	double testGetDY(); 
-	double testGetV(); 
-	double testGetMass(); 
-	double testGetArea();
-	Position testGetPosition(); 
+	void testGetDX(); 
+	void testGetDY(); 
+	void testGetV(); 
+	void testGetMass(); 
+	void testGetArea();
+	void testGetPosition(); 
 	
 	//Test setters
-	Position testSetPosition(Position position);
-	double testSetDX(double newDX);
-	double testSetDY(double newDY);
-	double testSetV(double newV);
+	void testSetPosition(Position position);
+	void testSetDX(double newDX);
+	void testSetDY(double newDY);
+	void testSetV(double newV);
 
 private:
 	double testDXValue; 
