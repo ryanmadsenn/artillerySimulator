@@ -1,11 +1,16 @@
 
 #include <cassert>
+#include <iostream>
+#include <iomanip>
+#include <math.h>
 #include "physics.h"
 #include "projectile.h"
 
 class TestPhysics {
+private:
     Physics physics;
 
+public:
     void run();
     void setup();
     void testInitialCalculations();

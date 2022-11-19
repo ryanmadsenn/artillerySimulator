@@ -4,9 +4,9 @@
 #include <iostream>
 #include <cassert>
 
-testProjectile::testProjectile(): projectile(), testAreaValue(0.5), testMassValue(50.0), testDXValue(150.0), testDYValue(150.0), testPositionValue(10.0, 10.0), testVValue(35.0) {}
+TestProjectile::TestProjectile(): projectile(), testAreaValue(0.5), testMassValue(50.0), testDXValue(150.0), testDYValue(150.0), testPositionValue(10.0, 10.0), testVValue(35.0) {}
 
-void testProjectile::run() {
+void TestProjectile::run() {
 	
 	// Setup
 	setup();
@@ -69,25 +69,25 @@ void testProjectile::run() {
 	testSetV(150.0); 
 
 	//Teardown -> Setup 
-	setup(); 
+	setup();
+
+    cout << "Projectile tests passed" << endl;
 
 }
-void testProjectile::setup() {
-	projectile = Projectile(); 
+void TestProjectile::setup() {
+//	projectile = Projectile();
 }
 
-void testProjectile::testGetDX() {
+void TestProjectile::testGetDX() {
 	//Setup
 	projectile.setDX(testDXValue);
 	
-	//Exercise
-	double DX = projectile.getDX();
-	
-	//Verify
-	assert(projectile.getDX() == 35.0); 
+	// Exercise
+	// Verify
+	assert(projectile.getDX() == 150.0);
 }
 
-void testProjectile::testGetDY() {
+void TestProjectile::testGetDY() {
 	//Setup
 	projectile.setDY(testDYValue);
 	
@@ -99,21 +99,21 @@ void testProjectile::testGetDY() {
 	
 }
 
-void testProjectile::testGetArea() {
+void TestProjectile::testGetArea() {
 	//Exercise
 	double area = projectile.getArea();
 	//Verify
 	assert(area == 0.018842);
 }
 
-void testProjectile::testGetMass() {
+void TestProjectile::testGetMass() {
 	//Exercise
 	double mass = projectile.getMass(); 
 	//Verify
 	assert(mass == 46.7);
 }
 
-void testProjectile::testGetV() {
+void TestProjectile::testGetV() {
 	//Setup
 	projectile.setV(testVValue);
 	
@@ -124,19 +124,19 @@ void testProjectile::testGetV() {
 	assert(V == testVValue);
 }
 
-void testProjectile::testGetPosition() {
+void TestProjectile::testGetPosition() {
 	
 	//Setup
 	projectile.setPosition(testPositionValue);
 	
 	//Exercise
-	Position position = projectile.getPosition(); 
+	Position * pPosition = projectile.getPosition();
 	
 	//Verify
-	assert(position == testPositionValue);
+	assert(*pPosition == testPositionValue);
 }
 
-void testProjectile::testSetDX(double newDX) {
+void TestProjectile::testSetDX(double newDX) {
 	//Exercise
 	projectile.setDX(newDX); 
 	
@@ -145,7 +145,7 @@ void testProjectile::testSetDX(double newDX) {
 	assert(DX == newDX);
 }
 
-void testProjectile::testSetDY(double newDY) {
+void TestProjectile::testSetDY(double newDY) {
 	//Setup
 	projectile.setDY(newDY);
 	
@@ -154,16 +154,16 @@ void testProjectile::testSetDY(double newDY) {
 	assert(DY == newDY);
 }
 
-void testProjectile::testSetPosition(Position newPosition) {
+void TestProjectile::testSetPosition(Position newPosition) {
 	//Excercise
 	projectile.setPosition(newPosition);
 	
 	//Verify
-	Position position = projectile.getPosition();
-	assert(position == newPosition);
+	Position * pPosition = projectile.getPosition();
+	assert(*pPosition == newPosition);
 }
 
-void testProjectile::testSetV(double V) {
+void TestProjectile::testSetV(double V) {
 	//Exercise
 	projectile.setV(V);
 	

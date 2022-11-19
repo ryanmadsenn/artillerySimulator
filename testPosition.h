@@ -30,12 +30,14 @@ public:
       nonDefaultConstructor();
       copyConstructor();
       assignment();
- 
+
       setPixels();
       setMeters();
       
       addPixels();
       addMeters();
+
+      cout << "Position tests passed" << endl;
    }
    
 private:
@@ -53,6 +55,7 @@ private:
       // verify
       assert(pos.x == 0.0);
       assert(pos.y == 0.0);
+
    }  // teardown
 
    void nonDefaultConstructor() const

@@ -5,7 +5,7 @@
 
 void Physics::initialCalculations(double aRadians) {
     projectile.setV(827); // Set projectile velocity to 827 m/s
-    vs = tableLookUp(projectile.getPosition().getMetersY(),
+    vs = tableLookUp(projectile.getPosition()->getMetersY(),
     SPEED_SOUND_TABLE); // Look up speed of sound.
     calculateVM(); // Calculate velocity mach.
     calculateDX(aRadians); // Calculate horizontal component.
@@ -14,7 +14,7 @@ void Physics::initialCalculations(double aRadians) {
 
 void Physics::updateProjectile() {
     cd = tableLookUp(vm, DRAG_TABLE); // Calculate coefficient of drag.
-    ad = tableLookUp(projectile.getPosition().getMetersY(),
+    ad = tableLookUp(projectile.getPosition()->getMetersY(),
                      AIR_DENSITY_TABLE); // Calculate air density.
     calculateF(); // Calculate force on shell.
     calculateAcc(); // Calculate acceleration.
@@ -23,7 +23,7 @@ void Physics::updateProjectile() {
     calculateNewPos(); // Calculate new position.
     updateComponents(); // Calculate new horizontal and vertical components.
     calculateV(); // Calculate new total velocity.
-    vs = tableLookUp(projectile.getPosition().getMetersY(),
+    vs = tableLookUp(projectile.getPosition()->getMetersY(),
                      SPEED_SOUND_TABLE); // Re-calculate speed of sound.
     calculateVM(); // Re-calculate velocity mach.
 }
@@ -61,7 +61,7 @@ double Physics::calculateDY(double aRadians) {
 }
 
 double Physics::angleFromComponents() {
-    return fmod((atan2(projectile.getDY(), projectile.getDY()) + M_PI), M_2_PI);
+    return fmod((atan2(projectile.getDX(), projectile.getDY()) + M_PI), M_2_PI);
 }
 
 void Physics::calculateF() {
@@ -77,18 +77,18 @@ void Physics::calculateDDX() {
 }
 
 void Physics::calculateDDY() {
-    ddy = -tableLookUp(projectile.getPosition().getMetersY(), GRAVITY_TABLE)
+    ddy = -tableLookUp(projectile.getPosition()->getMetersY(), GRAVITY_TABLE)
             - cos(angleFromComponents()) * acc;
 }
 
 void Physics::calculateNewPos() {
-    projectile.getPosition().setMetersX((
-            projectile.getPosition().getMetersX() +
+    projectile.getPosition()->setMetersX((
+            projectile.getPosition()->getMetersX() +
             projectile.getDX() * timeInterval +
             0.5 * ddx * pow(timeInterval, 2)));
 
-    projectile.getPosition().setMetersY((
-            projectile.getPosition().getMetersY() +
+    projectile.getPosition()->setMetersY((
+            projectile.getPosition()->getMetersY() +
             projectile.getDY() * timeInterval +
             0.5 * ddy * pow(timeInterval, 2)));
 }

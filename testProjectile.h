@@ -6,11 +6,11 @@
 #include <cassert>
 using namespace std; 
 
-class testProjectile {
+class TestProjectile {
 public:
 	Projectile projectile; 
 	
-	testProjectile(); 
+	TestProjectile();
 	void run(); 
 	void setup();
 	void testGetDX(); 

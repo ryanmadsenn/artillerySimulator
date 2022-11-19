@@ -2,6 +2,8 @@
 #include <iostream>
 #include "position.h"
 
+#pragma once
+
 using namespace std;
 
 class Projectile {
@@ -16,7 +18,7 @@ public:
     Projectile();
 
     // Getters.
-    Position getPosition();
+    Position * getPosition();
     double getDX();
     double getDY();
     double getV();

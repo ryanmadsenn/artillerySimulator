@@ -17,26 +17,30 @@
 #include "ground.h"     // for GROUND
 #include "position.h"   // for POSITION
 #include "howitzer.h"   // for HOWITZER
+#include "test.h"
+#include "testProjectile.h"
+#include "testPhysics.h"
+#include "testGround.h"
+#include "testPosition.h"
 using namespace std;
 
 /*************************************************************************
  * Demo
  * Test structure to capture the LM that will move around the screen
  *************************************************************************/
-class Demo
+class Game
 {
 public:
-   Demo(Position ptUpperRight) :
+   Game(Position ptUpperRight) :
       ptUpperRight(ptUpperRight),
       ground(ptUpperRight),
-      time(0.0),
-      angle(0.0)
+      howitzer(ptUpperRight),
+      time(0.0)
    {
-      // Set the horizontal position of the howitzer. This should be random.
-      ptHowitzer.setPixelsX(Position(ptUpperRight).getPixelsX() / 2.0);
-
-      // Generate the ground and set the vertical position of the howitzer.
-      ground.reset(ptHowitzer);
+       // Pass howitzer position to ground so that
+       // it's Y position can be set to the correct
+       // height.
+       ground.reset(*howitzer.getPosition());
 
       // This is to make the bullet travel across the screen. Notice how there are 
       // 20 pixels, each with a different age. This gives the appearance
@@ -50,9 +54,8 @@ public:
 
    Ground ground;                 // the ground
    Position  projectilePath[20];  // path of the projectile
-   Position  ptHowitzer;          // location of the howitzer
+   Howitzer  howitzer;          // location of the howitzer
    Position  ptUpperRight;        // size of the screen
-   double angle;                  // angle of the howitzer 
    double time;                   // amount of time since the last firing
 };
 
@@ -67,7 +70,7 @@ void callBack(const Interface* pUI, void* p)
 {
    // the first step is to cast the void pointer into a game object. This
    // is the first step of every single callback function in OpenGL. 
-   Demo* pDemo = (Demo*)p;
+   Game* pGame = (Game*)p;
 
    //
    // accept input
@@ -75,24 +78,18 @@ void callBack(const Interface* pUI, void* p)
 
    // move a large amount
    if (pUI->isRight())
-       // Call howitzer.rotate(0)
-      pDemo->angle += 0.05;
+      pGame->howitzer.rotate(0);
    if (pUI->isLeft())
-       // Call howitzer.rotate(1)
-      pDemo->angle -= 0.05;
-
-   // move by a little
+      pGame->howitzer.rotate(1);
    if (pUI->isUp())
-       // Call howitzer.rotate(2)
-      pDemo->angle += (pDemo->angle >= 0 ? -0.003 : 0.003);
+      pGame->howitzer.rotate(2);
    if (pUI->isDown())
-       // Call howitzer.rotate(3)
-      pDemo->angle += (pDemo->angle >= 0 ? 0.003 : -0.003);
+      pGame->howitzer.rotate(3);
 
    // fire that gun
    if (pUI->isSpace())
        // Call howitzer.shoot()
-      pDemo->time = 0.0;
+      pGame->time = 0.0;
 
    //
    // perform all the game logic
@@ -100,42 +97,42 @@ void callBack(const Interface* pUI, void* p)
 
    // advance time by half a second.
    // pHowitzer.incrementTimeSinceLastShot()
-   pDemo->time += 0.5;
+   pGame->time += 0.5;
 
    // move the projectile across the screen
    for (int i = 0; i < 20; i++)
    {
       // this bullet is moving left at 1 pixel per frame
-      double x = pDemo->projectilePath[i].getPixelsX();
+      double x = pGame->projectilePath[i].getPixelsX();
       x -= 1.0;
       if (x < 0)
-         x = pDemo->ptUpperRight.getPixelsX();
-      pDemo->projectilePath[i].setPixelsX(x);
+         x = pGame->ptUpperRight.getPixelsX();
+      pGame->projectilePath[i].setPixelsX(x);
    }
 
    //
    // draw everything
    //
 
-   ogstream gout(Position(10.0, pDemo->ptUpperRight.getPixelsY() - 20.0));
+   ogstream gout(Position(10.0, pGame->ptUpperRight.getPixelsY() - 20.0));
 
    // draw the ground first
    // pGround->draw(gout);
-   pDemo->ground.draw(gout);
+   pGame->ground.draw(gout);
 
    // draw the howitzer
    //gout.drawHowitzer(pHowitzer->*getPosition(), pHowitzer->getAngle(), pHowitzer.getTimeSinceLastShot())
-   gout.drawHowitzer(pDemo->ptHowitzer, pDemo->angle, pDemo->time);
+   gout.drawHowitzer(*pGame->howitzer.getPosition(), pGame->howitzer.getAngle(), pGame->time);
 
    // draw the projectile
    for (int i = 0; i < 20; i++)
-      gout.drawProjectile(pDemo->projectilePath[i], 0.5 * (double)i);
+      gout.drawProjectile(pGame->projectilePath[i], 0.5 * (double)i);
 
    // draw some text on the screen
    gout.setf(ios::fixed | ios::showpoint);
    gout.precision(1);
    gout << "Time since the bullet was fired: "
-        << pDemo->time << "s\n";
+        << pGame->time << "s\n";
 }
 
 double Position::metersFromPixels = 40.0;
@@ -163,20 +160,13 @@ int main(int argc, char** argv)
       "Artillery Simulator",   /* name on the window */
       ptUpperRight);
 
+   testRunner();
+
    // Initialize the demo
-   Demo demo(ptUpperRight);
-
-   // Instantiate classes.
-   Howitzer howitzer(ptUpperRight);
-   Ground ground(ptUpperRight);
-
-   // Pass howitzer position to ground so that
-   // it's Y position can be set to the correct
-   // height.
-   ground.reset(*howitzer.getPosition());
+   Game game(ptUpperRight);
 
    // set everything into action
-   ui.run(callBack, &demo);
+   ui.run(callBack, &game);
 
 
    return 0;

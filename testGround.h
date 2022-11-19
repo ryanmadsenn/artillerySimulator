@@ -37,6 +37,8 @@ public:
       getTarget_seven();
 
       draw();
+
+       cout << "Ground tests passed" << endl;
    }
 
 private:

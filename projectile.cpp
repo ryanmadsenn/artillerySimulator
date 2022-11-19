@@ -5,8 +5,10 @@
 const double MASS = 46.7;
 const double AREA = 0.018842;
 
-Position Projectile::getPosition() {
-    return position;
+Projectile::Projectile() {}
+
+Position * Projectile::getPosition() {
+    return &position;
 }
 
 double Projectile::getDX() {

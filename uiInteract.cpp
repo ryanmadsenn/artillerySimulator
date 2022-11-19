@@ -318,7 +318,7 @@ void Interface::initialize(int argc, char ** argv, const char * title,
  *************************************************************************/
 void Interface::run(void (*callBack)(const Interface *, void *), void *p)
 {
-   // setup the callbacks
+   // Setup the callbacks.
    this->p = p;
    this->callBack = callBack;
 

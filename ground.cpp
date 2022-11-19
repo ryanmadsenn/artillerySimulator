@@ -10,6 +10,7 @@
 #include "ground.h"   // for the Ground class definition
 #include "uiDraw.h"   // for random() and drawLine()
 #include <cassert>
+#include <iostream>
 
 const int WIDTH_HOWITZER = 14;
 
@@ -55,6 +56,7 @@ double Ground::getElevationMeters(const Position& pos) const
  ************************************************************************/
 Position Ground::getTarget() const
 {
+//    std::cout << posUpperRight.getPixelsX() << std::endl;
    assert(iTarget >= 0 && iTarget < posUpperRight.getPixelsX());
    Position posTarget;
    posTarget.setPixelsX(iTarget);
