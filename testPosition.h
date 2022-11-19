@@ -33,11 +33,11 @@ public:
 
       setPixels();
       setMeters();
-      
+
       addPixels();
       addMeters();
 
-      cout << "Position tests passed" << endl;
+      cout << "\u001b[1m\u001b[32mPosition tests passed" << endl;
    }
    
 private:
