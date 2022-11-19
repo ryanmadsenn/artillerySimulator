@@ -115,7 +115,7 @@ void testProjectile::testGetMass() {
 
 void testProjectile::testGetV() {
 	//Setup
-	projectile.setV(testVValue);;
+	projectile.setV(testVValue);
 	
 	//Exercise
 	double V = projectile.getV(); 
