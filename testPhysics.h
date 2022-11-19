@@ -13,8 +13,6 @@ private:
 public:
     void run();
     void setup();
-    void testInitialCalculations();
-    void testUpdateProjectile();
     void testLinearlyInterpolate();
     void testCalculateVM();
     void testCalculateDX();
