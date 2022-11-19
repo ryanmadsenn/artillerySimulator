@@ -22,8 +22,8 @@ public:
     void updateProjectile(); // Calls all methods necessary to update projectile.
     double linearlyInterpolate(double value, double v0, double v1, double c0, double c1); // Perform linear interpolation.
     void calculateVM(); // Calculate velocity in mach.
-    double calculateDX(double aRadians); // Calculate horizontal component.
-    double calculateDY(double aRadians); // Calculate vertical component.
+    void calculateDX(double aRadians); // Calculate horizontal component.
+    void calculateDY(double aRadians); // Calculate vertical component.
     double angleFromComponents();
     double tableLookUp(double value, map<double, double> table);
     void calculateF(); // Calculate force on shell.

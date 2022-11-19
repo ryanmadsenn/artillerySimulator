@@ -5,6 +5,7 @@
 
 #include "physics.h"
 #include <cmath>
+#include <map>
 
 void Physics::initialCalculations(double aRadians) {
     projectile.setV(827); // Set projectile velocity to 827 m/s
@@ -55,11 +56,11 @@ void Physics::calculateVM() {
     vm = projectile.getV() / vs;
 }
 
-double Physics::calculateDX(double aRadians) {
+void Physics::calculateDX(double aRadians) {
     projectile.setDX(sin(aRadians) * projectile.getV());
 }
 
-double Physics::calculateDY(double aRadians) {
+void Physics::calculateDY(double aRadians) {
     projectile.setDY(cos(aRadians) * projectile.getV());
 }
 
