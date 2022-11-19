@@ -1,7 +1,10 @@
 //
 // Created by Ryan Madsen on 11/12/22.
 //
+#define _USE_MATH_DEFINES
+
 #include "physics.h"
+#include <cmath>
 
 void Physics::initialCalculations(double aRadians) {
     projectile.setV(827); // Set projectile velocity to 827 m/s

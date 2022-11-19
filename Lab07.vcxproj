@@ -142,6 +142,7 @@
     <ClCompile Include="ground.cpp" />
     <ClCompile Include="howitzer.cpp" />
     <ClCompile Include="Lab07.cpp" />
+    <ClCompile Include="physics.cpp" />
     <ClCompile Include="position.cpp" />
     <ClCompile Include="projectile.cpp" />
     <ClCompile Include="test.cpp" />
@@ -153,6 +154,7 @@
   <ItemGroup>
     <ClInclude Include="ground.h" />
     <ClInclude Include="howitzer.h" />
+    <ClInclude Include="physics.h" />
     <ClInclude Include="position.h" />
     <ClInclude Include="projectile.h" />
     <ClInclude Include="test.h" />
