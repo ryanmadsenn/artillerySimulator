@@ -32,7 +32,7 @@ void TestPhysics::run() {
 }
 
 void TestPhysics::setup() {
-    physics = Physics();
+    physics.reset();
 }
 
 void TestPhysics::testLinearlyInterpolate() {

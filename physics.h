@@ -33,6 +33,7 @@ public:
     void calculateNewPos(); // Calculate new position.
     void updateComponents(); // Calculate new horizontal and vertical component.
     void calculateV(); // Calculate total velocity.
+    void reset();
 
     // Getters.
     double getVS();

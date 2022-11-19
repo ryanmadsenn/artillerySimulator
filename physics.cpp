@@ -104,6 +104,18 @@ void Physics::calculateV() {
                         pow(projectile.getDY(), 2)));
 }
 
+void Physics::reset() {
+    vs = 0; // Velocity of sound.
+    vm = 0; // Velocity mach.
+    timeInterval = 0;
+    cd = 0; // Coefficient of drag.
+    ad = 0; // Air density.
+    f = 0; // Force on shell.
+    acc = 0; // Acceleration.
+    ddx = 0; // Horizontal component of acceleration.
+    ddy = 0; // Vertical component of acceleration.
+}
+
 
 // Getters.
 double Physics::getVS() {

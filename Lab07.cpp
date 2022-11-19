@@ -160,7 +160,7 @@ int main(int argc, char** argv)
    ptUpperRight.setPixelsY(500.0);
    Position().setZoom(40.0 /* 42 meters equals 1 pixel */);
    Interface ui(0, NULL,
-      "Demo",   /* name on the window */
+      "Artillery Simulator",   /* name on the window */
       ptUpperRight);
 
    // Initialize the demo

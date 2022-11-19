@@ -25,6 +25,7 @@ void Howitzer::rotate(int keyPressed) {
     if (keyPressed == 1) {
         angle += (angle >= 0 ? 0.003 : -0.003);
     }
+    
 }
 
 void Howitzer::shoot() {
