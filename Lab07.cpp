@@ -107,6 +107,9 @@ void callBack(const Interface* pUI, void* p)
 
     if (pGame->projectile.getPosition()->getMetersY() - pGame->ground.getElevationMeters(*pGame->projectile.getPosition()) <= 0) {
         pGame->projectile.setIsFlying(false);
+        pGame->projectile.setDX(0.0);
+        pGame->projectile.setDY(0.0);
+        pGame->projectile.setPosition(*pGame->howitzer.getPosition());
     }
 
     // Print projectiles elevation in relation to the ground.
