@@ -138,19 +138,21 @@ void callBack(const Interface* pUI, void* p)
         pGame->projectile.setHitGround(true);
 
         pGame->projectile.setV(pGame->physics.linearlyInterpolate(pGame->ground.getElevationMeters(*pGame->projectile.getPosition()),
-                                           pGame->projectile.getPrevAltitude(),
-                                           pGame->projectile.getPosition()->getMetersY(),
-                                           pGame->projectile.getPrevV(),
-                                           pGame->projectile.getV()));
+            pGame->projectile.getPrevAltitude(),
+            pGame->projectile.getPosition()->getMetersY(),
+            pGame->projectile.getPrevV(),
+            pGame->projectile.getV()));
 
         pGame->projectile.setAge(pGame->physics.linearlyInterpolate(pGame->ground.getElevationMeters(*pGame->projectile.getPosition()),
-                                                                  pGame->projectile.getPrevAltitude(),
-                                                                  pGame->projectile.getPosition()->getMetersY(),
-                                                                  pGame->projectile.getPrevAge(),
-                                                                  pGame->projectile.getAge()));
+            pGame->projectile.getPrevAltitude(),
+            pGame->projectile.getPosition()->getMetersY(),
+            pGame->projectile.getPrevAge(),
+            pGame->projectile.getAge()));
 
         pGame->projectile.getPosition()->setMetersY(pGame->ground.getElevationMeters(*pGame->projectile.getPosition()));
-    if (pGame->projectile.getHitTarget(pGame->ground.getTarget())) {
+    }
+    
+        if (pGame->projectile.getHitTarget(pGame->ground.getTarget())) {
         //pGame->reset();
         cout << "Hit\n";
     }
@@ -158,7 +160,6 @@ void callBack(const Interface* pUI, void* p)
     // Print projectiles elevation in relation to the ground.
 //    cout << "Projectile elevation: " << pGame->projectile.getPosition()->getMetersY() - pGame->ground.getElevationMeters(*pGame->projectile.getPosition()) << endl;
 
-    }
 
    ogstream gout(Position(10.0, pGame->ptUpperRight.getPixelsY() - 20.0));
 
