@@ -106,7 +106,6 @@ void callBack(const Interface* pUI, void* p)
    // fire that gun
    if (pUI->isSpace() && !pGame->projectile.getIsFlying() && !pGame->projectile.getHitGround()) {
        // Call physics engine to calculate projectile's new position.
-       cout << pGame->projectile.getHitGround() << endl;
        pGame->physics.initialCalculations(pGame->howitzer.getAngleRadians());
        pGame->howitzer.resetTimeSinceLastShot();
        pGame->projectile.setIsFlying(true);
@@ -152,7 +151,7 @@ void callBack(const Interface* pUI, void* p)
         pGame->projectile.getPosition()->setMetersY(pGame->ground.getElevationMeters(*pGame->projectile.getPosition()));
     }
     
-        if (pGame->projectile.getHitTarget(pGame->ground.getTarget())) {
+    if (pGame->projectile.getHitTarget(pGame->ground.getTarget())) {
         //pGame->reset();
         cout << "Hit\n";
     }
