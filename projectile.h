@@ -55,5 +55,6 @@ public:
     void updateAge(double timeInterval);
     void updateTrail(Position segment);
     bool getHitTarget(Position target);
+    void resetTrail();
 
 };

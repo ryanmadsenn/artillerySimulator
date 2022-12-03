@@ -58,13 +58,8 @@ public:
        howitzer.getPosition()->setPixelsX(rand() % (int)ptUpperRight.getPixelsX() + 1);
        ground.reset(*howitzer.getPosition());
        projectile.setPosition(*howitzer.getPosition());
-       
-       for (int i = 0; i < 20; i++)
-       {
-           projectilePath[i].setPixelsX((double)i * 2.0);
-           projectilePath[i].setPixelsY(ptUpperRight.getPixelsY() / 1.5);
-       }
-
+       projectile.resetTrail();
+       projectile.getTrail()[0] = *howitzer.getPosition();
    }
 
    Ground ground;                 // the ground
@@ -152,7 +147,7 @@ void callBack(const Interface* pUI, void* p)
     }
     
     if (pGame->projectile.getHitTarget(pGame->ground.getTarget())) {
-        //pGame->reset();
+        pGame->reset();
         cout << "Hit\n";
     }
 
