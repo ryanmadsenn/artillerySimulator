@@ -21,7 +21,9 @@ public:
 
     Position * getPosition();
 
-    double getAngle();
+    double getAngleDegrees();
+
+    double getAngleRadians();
 
     double getTimeSinceLastShot();
 

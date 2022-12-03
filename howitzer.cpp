@@ -36,7 +36,11 @@ Position * Howitzer::getPosition() {
     return &position;
 }
 
-double Howitzer::getAngle() {
+double Howitzer::getAngleDegrees() {
+    return angle * 180 / M_PI;
+}
+
+double Howitzer::getAngleRadians() {
     return angle;
 }
 
