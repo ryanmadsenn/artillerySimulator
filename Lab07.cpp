@@ -41,6 +41,8 @@ public:
        // it's Y position can be set to the correct
        // height.
        ground.reset(*howitzer.getPosition());
+       // set projectile position equal to position of howitzer
+       projectile.setPosition(*howitzer.getPosition());
 
       // This is to make the bullet travel across the screen. Notice how there are 
       // 20 pixels, each with a different age. This gives the appearance
@@ -55,6 +57,8 @@ public:
    Ground ground;                 // the ground
    Position  projectilePath[20];  // path of the projectile
    Howitzer  howitzer;          // location of the howitzer
+   Projectile projectile;        // the projectile
+   Physics physics = Physics(&projectile);              // physics engine
    Position  ptUpperRight;        // size of the screen
    double time;                   // amount of time since the last firing
 };
@@ -87,28 +91,26 @@ void callBack(const Interface* pUI, void* p)
       pGame->howitzer.rotate(3);
 
    // fire that gun
-   if (pUI->isSpace())
-       // Call howitzer.shoot()
-      pGame->time = 0.0;
-
-   //
-   // perform all the game logic
-   //
-
-   // advance time by half a second.
-   // pHowitzer.incrementTimeSinceLastShot()
-   pGame->time += 0.5;
-
-   // move the projectile across the screen
-   for (int i = 0; i < 20; i++)
-   {
-      // this bullet is moving left at 1 pixel per frame
-      double x = pGame->projectilePath[i].getPixelsX();
-      x -= 1.0;
-      if (x < 0)
-         x = pGame->ptUpperRight.getPixelsX();
-      pGame->projectilePath[i].setPixelsX(x);
+   if (pUI->isSpace() && !pGame->projectile.getIsFlying()) {
+       // Call physics engine to calculate projectile's new position.
+       pGame->physics.initialCalculations(pGame->howitzer.getAngle());
+       pGame->howitzer.resetTimeSinceLastShot();
+       pGame->projectile.setIsFlying(true);
    }
+
+    if (pGame->projectile.getIsFlying()) {
+        // Call physics engine to calculate projectile's new position.
+        pGame->projectile.updateTrail(*pGame->projectile.getPosition());
+        pGame->physics.updateProjectile();
+        pGame->howitzer.incrementTimeSinceLastShot();
+    }
+
+    if (pGame->ground.getElevationMeters(*pGame->projectile.getPosition()) <= 0) {
+        pGame->projectile.setIsFlying(false);
+    }
+
+    // Print projectiles elevation in relation to the ground.
+    cout << "Projectile elevation: " << pGame->ground.getElevationMeters(*pGame->projectile.getPosition()) << endl;
 
    //
    // draw everything
@@ -122,17 +124,18 @@ void callBack(const Interface* pUI, void* p)
 
    // draw the howitzer
    //gout.drawHowitzer(pHowitzer->*getPosition(), pHowitzer->getAngle(), pHowitzer.getTimeSinceLastShot())
-   gout.drawHowitzer(*pGame->howitzer.getPosition(), pGame->howitzer.getAngle(), pGame->time);
+   gout.drawHowitzer(*pGame->howitzer.getPosition(), pGame->howitzer.getAngle(), pGame->projectile.getIsFlying() ? pGame->howitzer.getTimeSinceLastShot() : 2);
 
    // draw the projectile
-   for (int i = 0; i < 20; i++)
-      gout.drawProjectile(pGame->projectilePath[i], 0.5 * (double)i);
+   for (int i = 0; i < 20; i++) {
+        gout.drawProjectile(pGame->projectile.getTrail()[i], 0.5 * i);
+   }
 
    // draw some text on the screen
    gout.setf(ios::fixed | ios::showpoint);
    gout.precision(1);
    gout << "Time since the bullet was fired: "
-        << pGame->time << "s\n";
+        << pGame->howitzer.getTimeSinceLastShot() << "s\n";
 }
 
 double Position::metersFromPixels = 40.0;

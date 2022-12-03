@@ -10,7 +10,7 @@ class Howitzer {
 private:
     Position position;
     double angle;
-    double timeSinceLastShot;
+    double timeSinceLastShot = 0;
 
 public:
     Howitzer(Position ptUpperRight);
@@ -26,4 +26,6 @@ public:
     double getTimeSinceLastShot();
 
     void incrementTimeSinceLastShot();
+
+    void resetTimeSinceLastShot();
 };

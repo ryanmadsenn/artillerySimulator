@@ -31,6 +31,18 @@ double Projectile::getArea() {
     return AREA;
 }
 
+double Projectile::getAge() {
+    return age;
+}
+
+bool Projectile::getIsFlying() {
+    return isFlying;
+}
+
+Position * Projectile::getTrail() {
+    return trail;
+}
+
 void Projectile::setPosition(Position position) {
     this->position = position;
 }
@@ -45,4 +57,19 @@ void Projectile::setDY(double dy) {
 
 void Projectile::setV(double v) {
     this->v = v;
+}
+
+void Projectile::setIsFlying(bool isFlying) {
+    this->isFlying = isFlying;
+}
+
+void Projectile::updateAge(double timeInterval) {
+    age += timeInterval;
+}
+
+void Projectile::updateTrail(Position segment) {
+    for (int i = 19; i > 0; i--) {
+        trail[i] = trail[i - 1];
+    }
+    trail[0] = segment;
 }

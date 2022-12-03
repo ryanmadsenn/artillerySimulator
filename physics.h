@@ -8,7 +8,7 @@ class Physics {
 private:
     double vs; // Velocity of sound.
     double vm; // Velocity mach.
-    double timeInterval;
+    double timeInterval = 0.5;
     double cd; // Coefficient of drag.
     double ad; // Air density.
     double f; // Force on shell.
@@ -17,7 +17,9 @@ private:
     double ddy; // Vertical component of acceleration.
 
 public:
-    Projectile projectile;
+    Projectile * projectile;
+    Physics(); // Default constructor.
+    Physics(Projectile * projectile); // Constructor.
     void initialCalculations(double aRadians); // Makes initial calculations when howitzer shoots.
     void updateProjectile(); // Calls all methods necessary to update projectile.
     double linearlyInterpolate(double value, double v0, double v1, double c0, double c1); // Perform linear interpolation.

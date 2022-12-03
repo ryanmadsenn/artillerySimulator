@@ -47,3 +47,7 @@ double Howitzer::getTimeSinceLastShot() {
 void Howitzer::incrementTimeSinceLastShot() {
     timeSinceLastShot += 0.5;
 }
+
+void Howitzer::resetTimeSinceLastShot() {
+    timeSinceLastShot = 0;
+}
