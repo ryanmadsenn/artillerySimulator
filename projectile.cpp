@@ -111,8 +111,8 @@ void Projectile::updateTrail(Position segment) {
 }
 
 bool Projectile::getHitTarget(Position target) {
-     cout << "First: " << (getPosition()->getPixelsX() >= target.getPixelsX() - 5.0) << endl;
-     cout << "Second: " << (getPosition()->getPixelsX() <= target.getPixelsX() + 5.0) << endl;
+     //cout << "First: " << (getPosition()->getPixelsX() >= target.getPixelsX() - 5.0) << endl;
+     //cout << "Second: " << (getPosition()->getPixelsX() <= target.getPixelsX() + 5.0) << endl;
 
     if (getPosition()->getPixelsX() >= target.getPixelsX() - 5.0 && getPosition()->getPixelsX() <= target.getPixelsX() + 5.0 &&
         getPosition()->getPixelsY() >= target.getPixelsY() - 5.0 && getPosition()->getPixelsY() <= target.getPixelsY() + 5.0) {

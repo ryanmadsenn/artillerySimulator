@@ -59,10 +59,10 @@ public:
        ground.reset(*howitzer.getPosition());
        projectile.setPosition(*howitzer.getPosition());
        
-       for (int i = 0; i < 20; i++)
+       for (int i = 1; i < 20; i++)
        {
-           projectilePath[i].setPixelsX((double)i * 2.0);
-           projectilePath[i].setPixelsY(ptUpperRight.getPixelsY() / 1.5);
+           projectilePath[i].setPixelsX(0.0);
+           projectilePath[i].setPixelsY(0.0);
        }
 
    }
@@ -152,8 +152,7 @@ void callBack(const Interface* pUI, void* p)
     }
     
     if (pGame->projectile.getHitTarget(pGame->ground.getTarget())) {
-        //pGame->reset();
-        cout << "Hit\n";
+        pGame->reset();
     }
 
     // Print projectiles elevation in relation to the ground.
