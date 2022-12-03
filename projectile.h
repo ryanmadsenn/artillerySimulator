@@ -41,5 +41,6 @@ public:
     // Other methods.
     void updateAge(double timeInterval);
     void updateTrail(Position segment);
+    bool getHitTarget(Position target);
 
 };

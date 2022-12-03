@@ -54,3 +54,4 @@ std::istream& operator >> (std::istream& in, Position& pt)
 
    return in;
 }
+

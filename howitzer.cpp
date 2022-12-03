@@ -1,5 +1,7 @@
+#define _USE_MATH_DEFINES
 #include <iostream>
 #include "howitzer.h"
+#include <cmath>
 
 using namespace std;
 

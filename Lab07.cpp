@@ -54,6 +54,19 @@ public:
       }
    }
 
+   void reset() {
+       howitzer.getPosition()->setPixelsX(rand() % (int)ptUpperRight.getPixelsX() + 1);
+       ground.reset(*howitzer.getPosition());
+       projectile.setPosition(*howitzer.getPosition());
+       
+       for (int i = 0; i < 20; i++)
+       {
+           projectilePath[i].setPixelsX((double)i * 2.0);
+           projectilePath[i].setPixelsY(ptUpperRight.getPixelsY() / 1.5);
+       }
+
+   }
+
    Ground ground;                 // the ground
    Position  projectilePath[20];  // path of the projectile
    Howitzer  howitzer;          // location of the howitzer
@@ -111,6 +124,11 @@ void callBack(const Interface* pUI, void* p)
         pGame->projectile.setDX(0.0);
         pGame->projectile.setDY(0.0);
         pGame->projectile.setPosition(*pGame->howitzer.getPosition());
+    }
+
+    if (pGame->projectile.getHitTarget(pGame->ground.getTarget())) {
+        //pGame->reset();
+        cout << "Hit\n";
     }
 
     // Print projectiles elevation in relation to the ground.
