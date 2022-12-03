@@ -35,7 +35,7 @@ public:
    // determine how high the Position is off the ground
    double getElevationMeters(const Position & pos) const;
 
-   // where the the target located?
+   // where is the target located?
    Position getTarget() const;
 
    // unit test access
