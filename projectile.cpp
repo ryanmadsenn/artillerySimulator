@@ -121,7 +121,6 @@ bool Projectile::getHitTarget(Position target) {
 }
 
 void Projectile::resetTrail() {
-    // Set all trail positions to 0, 0.
     for (int i = 1; i < 20; i++) {
         trail[i] = Position(0, 0);
     }
