@@ -1,5 +1,6 @@
 
 #include <iostream>
+#include <vector>
 #include "position.h"
 
 #pragma once
@@ -18,7 +19,7 @@ private:
     double prevV;
     double prevAge;
     double prevAltitude;
-    Position trail[20];
+    Position trail[20]; 
 
 public:
     // Constructor
@@ -50,6 +51,7 @@ public:
     void setPrevAltitude(double prevAltitude);
     void setHitGround(bool hitGround);
     void setIsFlying(bool isFlying);
+    void resetTrail();
 
     // Other methods.
     void updateAge(double timeInterval);
