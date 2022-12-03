@@ -93,7 +93,7 @@ void callBack(const Interface* pUI, void* p)
    // fire that gun
    if (pUI->isSpace() && !pGame->projectile.getIsFlying()) {
        // Call physics engine to calculate projectile's new position.
-       pGame->physics.initialCalculations(pGame->howitzer.getAngle());
+       pGame->physics.initialCalculations(pGame->howitzer.getAngleRadians());
        pGame->howitzer.resetTimeSinceLastShot();
        pGame->projectile.setIsFlying(true);
    }
@@ -103,6 +103,7 @@ void callBack(const Interface* pUI, void* p)
         pGame->projectile.updateTrail(*pGame->projectile.getPosition());
         pGame->physics.updateProjectile();
         pGame->howitzer.incrementTimeSinceLastShot();
+        pGame->projectile.updateAge(0.5);
     }
 
     if (pGame->projectile.getPosition()->getMetersY() - pGame->ground.getElevationMeters(*pGame->projectile.getPosition()) <= 0) {
@@ -110,7 +111,7 @@ void callBack(const Interface* pUI, void* p)
     }
 
     // Print projectiles elevation in relation to the ground.
-    cout << "Projectile elevation: " << pGame->projectile.getPosition()->getMetersY() - pGame->ground.getElevationMeters(*pGame->projectile.getPosition()) << endl;
+//    cout << "Projectile elevation: " << pGame->projectile.getPosition()->getMetersY() - pGame->ground.getElevationMeters(*pGame->projectile.getPosition()) << endl;
 
    //
    // draw everything
@@ -124,7 +125,7 @@ void callBack(const Interface* pUI, void* p)
 
    // draw the howitzer
    //gout.drawHowitzer(pHowitzer->*getPosition(), pHowitzer->getAngle(), pHowitzer.getTimeSinceLastShot())
-   gout.drawHowitzer(*pGame->howitzer.getPosition(), pGame->howitzer.getAngle(), pGame->projectile.getIsFlying() ? pGame->howitzer.getTimeSinceLastShot() : 2);
+   gout.drawHowitzer(*pGame->howitzer.getPosition(), pGame->howitzer.getAngleRadians(), pGame->projectile.getIsFlying() ? pGame->howitzer.getTimeSinceLastShot() : 2);
 
    // draw the projectile
    for (int i = 0; i < 20; i++) {
@@ -134,8 +135,31 @@ void callBack(const Interface* pUI, void* p)
    // draw some text on the screen
    gout.setf(ios::fixed | ios::showpoint);
    gout.precision(1);
-   gout << "Time since the bullet was fired: "
-        << pGame->howitzer.getTimeSinceLastShot() << "s\n";
+
+   Position drawPos = Position();
+   drawPos.setPixelsX(425);
+   drawPos.setPixelsY(480);
+
+   gout.setPosition(drawPos);
+   gout << "Howitzer Angle: " << pGame->howitzer.getAngleDegrees() << " degrees";
+
+    drawPos.setPixelsX(425);
+    drawPos.setPixelsY(455);
+
+    gout.setPosition(drawPos);
+    gout << "Projectile Altitude: " << pGame->projectile.getPosition()->getMetersY() - pGame->ground.getElevationMeters(*pGame->projectile.getPosition()) << " meters";
+
+    drawPos.setPixelsX(425);
+    drawPos.setPixelsY(430);
+
+    gout.setPosition(drawPos);
+    gout << "Projectile Speed: " << pGame->projectile.getV() << " m/s";
+
+    drawPos.setPixelsX(425);
+    drawPos.setPixelsY(405);
+
+    gout.setPosition(drawPos);
+    gout << "Hang Time: " << pGame->projectile.getAge() << " s";
 }
 
 double Position::metersFromPixels = 40.0;
