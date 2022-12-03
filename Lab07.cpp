@@ -105,12 +105,12 @@ void callBack(const Interface* pUI, void* p)
         pGame->howitzer.incrementTimeSinceLastShot();
     }
 
-    if (pGame->ground.getElevationMeters(*pGame->projectile.getPosition()) <= 0) {
+    if (pGame->projectile.getPosition()->getMetersY() - pGame->ground.getElevationMeters(*pGame->projectile.getPosition()) <= 0) {
         pGame->projectile.setIsFlying(false);
     }
 
     // Print projectiles elevation in relation to the ground.
-    cout << "Projectile elevation: " << pGame->ground.getElevationMeters(*pGame->projectile.getPosition()) << endl;
+    cout << "Projectile elevation: " << pGame->projectile.getPosition()->getMetersY() - pGame->ground.getElevationMeters(*pGame->projectile.getPosition()) << endl;
 
    //
    // draw everything
