@@ -160,7 +160,7 @@ void callBack(const Interface* pUI, void* p)
     // Print projectiles elevation in relation to the ground.
 //    cout << "Projectile elevation: " << pGame->projectile.getPosition()->getMetersY() - pGame->ground.getElevationMeters(*pGame->projectile.getPosition()) << endl;
 
-
+  
    ogstream gout(Position(10.0, pGame->ptUpperRight.getPixelsY() - 20.0));
 
    // draw the ground first

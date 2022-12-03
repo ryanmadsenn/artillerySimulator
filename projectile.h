@@ -38,6 +38,7 @@ public:
     double getPrevAltitude();
     bool getHitGround();
     Position * getTrail();
+    bool getHitTarget(Position target);
 
     // Setters.
     void setPosition(Position position);
@@ -54,6 +55,6 @@ public:
     // Other methods.
     void updateAge(double timeInterval);
     void updateTrail(Position segment);
-    bool getHitTarget(Position target);
+    
 
 };

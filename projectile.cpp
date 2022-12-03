@@ -112,7 +112,8 @@ void Projectile::updateTrail(Position segment) {
 
 bool Projectile::getHitTarget(Position target) {
     if (getPosition()->getPixelsX() <= target.getPixelsX() - 5.0 && getPosition()->getPixelsX() >= target.getPixelsX() + 5.0 && 
-        getPosition()->getPixelsY() <= target.getPixelsY() + 5.0 && getPosition()->getPixelsY() >= target.getPixelsY() - 5.0) {
+        getPosition()->getPixelsY() <= target.getPixelsY() + 5.0 && getPosition()->getPixelsY() >= target.getPixelsY() - 5.0 
+        || getPosition()->getPixelsX() == target.getPixelsX()) {
         return true; 
     }
 
