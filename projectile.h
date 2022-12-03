@@ -14,6 +14,10 @@ private:
     double v = 0;
     double age = 0;
     bool isFlying = false;
+    bool hitGround = false;
+    double prevV;
+    double prevAge;
+    double prevAltitude;
     Position trail[20];
 
 public:
@@ -29,6 +33,10 @@ public:
     double getArea();
     double getAge();
     bool getIsFlying();
+    double getPrevV();
+    double getPrevAge();
+    double getPrevAltitude();
+    bool getHitGround();
     Position * getTrail();
 
     // Setters.
@@ -36,6 +44,11 @@ public:
     void setDX(double dx);
     void setDY(double dy);
     void setV(double v);
+    void setAge(double age);
+    void setPrevV(double prevV);
+    void setPrevAge(double prevAge);
+    void setPrevAltitude(double prevAltitude);
+    void setHitGround(bool hitGround);
     void setIsFlying(bool isFlying);
 
     // Other methods.

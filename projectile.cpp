@@ -35,6 +35,22 @@ double Projectile::getAge() {
     return age;
 }
 
+double Projectile::getPrevV() {
+    return prevV;
+}
+
+double Projectile::getPrevAge() {
+    return prevAge;
+}
+
+double Projectile::getPrevAltitude() {
+    return prevAltitude;
+}
+
+bool Projectile::getHitGround() {
+    return hitGround;
+}
+
 bool Projectile::getIsFlying() {
     return isFlying;
 }
@@ -59,8 +75,28 @@ void Projectile::setV(double v) {
     this->v = v;
 }
 
+void Projectile::setAge(double age) {
+    this->age = age;
+}
+
+void Projectile::setPrevV(double prevV) {
+    this->prevV = prevV;
+}
+
+void Projectile::setPrevAge(double prevAge) {
+    this->prevAge = prevAge;
+}
+
+void Projectile::setPrevAltitude(double prevAltitude) {
+    this->prevAltitude = prevAltitude;
+}
+
 void Projectile::setIsFlying(bool isFlying) {
     this->isFlying = isFlying;
+}
+
+void Projectile::setHitGround(bool hitGround) {
+    this->hitGround = hitGround;
 }
 
 void Projectile::updateAge(double timeInterval) {

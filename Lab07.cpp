@@ -104,8 +104,9 @@ void callBack(const Interface* pUI, void* p)
       pGame->howitzer.rotate(3);
 
    // fire that gun
-   if (pUI->isSpace() && !pGame->projectile.getIsFlying()) {
+   if (pUI->isSpace() && !pGame->projectile.getIsFlying() && !pGame->projectile.getHitGround()) {
        // Call physics engine to calculate projectile's new position.
+       cout << pGame->projectile.getHitGround() << endl;
        pGame->physics.initialCalculations(pGame->howitzer.getAngleRadians());
        pGame->howitzer.resetTimeSinceLastShot();
        pGame->projectile.setIsFlying(true);
@@ -113,19 +114,42 @@ void callBack(const Interface* pUI, void* p)
 
     if (pGame->projectile.getIsFlying()) {
         // Call physics engine to calculate projectile's new position.
+        pGame->projectile.setPrevV(pGame->projectile.getV());
+        pGame->projectile.setPrevAge(pGame->projectile.getAge());
+        pGame->projectile.setPrevAltitude(pGame->projectile.getPosition()->getMetersY());
         pGame->projectile.updateTrail(*pGame->projectile.getPosition());
         pGame->physics.updateProjectile();
         pGame->howitzer.incrementTimeSinceLastShot();
         pGame->projectile.updateAge(0.5);
     }
 
-    if (pGame->projectile.getPosition()->getMetersY() - pGame->ground.getElevationMeters(*pGame->projectile.getPosition()) <= 0) {
-        pGame->projectile.setIsFlying(false);
+    if (pUI->isSpace() && pGame->projectile.getHitGround()) {
+        // Call physics engine to calculate projectile's new position.
+        pGame->projectile.setHitGround(false);
         pGame->projectile.setDX(0.0);
         pGame->projectile.setDY(0.0);
         pGame->projectile.setPosition(*pGame->howitzer.getPosition());
+        pGame->projectile.setAge(0.0);
+        pGame->projectile.setV(0.0);
     }
 
+    if (pGame->projectile.getPosition()->getMetersY() - pGame->ground.getElevationMeters(*pGame->projectile.getPosition()) < 0) {
+        pGame->projectile.setIsFlying(false);
+        pGame->projectile.setHitGround(true);
+
+        pGame->projectile.setV(pGame->physics.linearlyInterpolate(pGame->ground.getElevationMeters(*pGame->projectile.getPosition()),
+                                           pGame->projectile.getPrevAltitude(),
+                                           pGame->projectile.getPosition()->getMetersY(),
+                                           pGame->projectile.getPrevV(),
+                                           pGame->projectile.getV()));
+
+        pGame->projectile.setAge(pGame->physics.linearlyInterpolate(pGame->ground.getElevationMeters(*pGame->projectile.getPosition()),
+                                                                  pGame->projectile.getPrevAltitude(),
+                                                                  pGame->projectile.getPosition()->getMetersY(),
+                                                                  pGame->projectile.getPrevAge(),
+                                                                  pGame->projectile.getAge()));
+
+        pGame->projectile.getPosition()->setMetersY(pGame->ground.getElevationMeters(*pGame->projectile.getPosition()));
     if (pGame->projectile.getHitTarget(pGame->ground.getTarget())) {
         //pGame->reset();
         cout << "Hit\n";
@@ -134,9 +158,7 @@ void callBack(const Interface* pUI, void* p)
     // Print projectiles elevation in relation to the ground.
 //    cout << "Projectile elevation: " << pGame->projectile.getPosition()->getMetersY() - pGame->ground.getElevationMeters(*pGame->projectile.getPosition()) << endl;
 
-   //
-   // draw everything
-   //
+    }
 
    ogstream gout(Position(10.0, pGame->ptUpperRight.getPixelsY() - 20.0));
 
