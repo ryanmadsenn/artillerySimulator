@@ -15,7 +15,7 @@ private:
 public:
     Howitzer(Position ptUpperRight);
 
-    void rotate(int keyPressed);
+    void rotate(double amount);
 
     void shoot();
 

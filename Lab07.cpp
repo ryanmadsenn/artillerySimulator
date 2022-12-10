@@ -90,13 +90,13 @@ void callBack(const Interface* pUI, void* p)
 
    // move a large amount
    if (pUI->isRight())
-      pGame->howitzer.rotate(0);
+      pGame->howitzer.rotate(0.05);
    if (pUI->isLeft())
-      pGame->howitzer.rotate(1);
+      pGame->howitzer.rotate(-0.05);
    if (pUI->isUp())
-      pGame->howitzer.rotate(2);
+      pGame->howitzer.rotate(pGame->howitzer.getAngleRadians() >= 0 ? -0.003 : 0.003);
    if (pUI->isDown())
-      pGame->howitzer.rotate(3);
+      pGame->howitzer.rotate(pGame->howitzer.getAngleRadians() >= 0 ? 0.003 : -0.003);
 
    // fire that gun
    if (pUI->isSpace() && !pGame->projectile.getIsFlying() && !pGame->projectile.getHitGround()) {

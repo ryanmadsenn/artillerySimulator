@@ -11,23 +11,8 @@ Howitzer::Howitzer(Position ptUpperRight) : angle(0.0) {
 
 }
 
-void Howitzer::rotate(int keyPressed) {
-    if (keyPressed == 0) {
-        angle += 0.05;
-    }
-
-    if (keyPressed == 1) {
-        angle -= 0.05;
-    }
-
-    if (keyPressed == 2) {
-        angle += (angle >= 0 ? -0.003 : 0.003);
-    }
-
-    if (keyPressed == 3) {
-        angle += (angle >= 0 ? 0.003 : -0.003);
-    }
-    
+void Howitzer::rotate(double amount) {
+    angle += amount;
 }
 
 void Howitzer::shoot() {

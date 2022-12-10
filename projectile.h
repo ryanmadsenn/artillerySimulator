@@ -51,7 +51,6 @@ public:
     void setPrevAltitude(double prevAltitude);
     void setHitGround(bool hitGround);
     void setIsFlying(bool isFlying);
-    void resetTrail();
 
     // Other methods.
     void updateAge(double timeInterval);
